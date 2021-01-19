@@ -1,28 +1,43 @@
-import React, {SetStateAction, useState} from 'react';
-import { Button, StyleSheet, TextInput, View, Text } from 'react-native';
-import {v4 as uuidv4} from 'uuid';
+import React, { useState } from 'react';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { v4 as uuidv4 } from 'uuid';
+import TodoItem from './components/TodoItem';
+import TodoInput from './components/TodoInput';
+
 export default function App() {
 
-  const [enteredTodo, setEnteredTodo] = useState('');
-  const [todoItem, setTodoItem] = useState([]);
+  const [todoItems, setTodoItem] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
 
-  const todoInputHandler = (enteredText) => {
-    setEnteredTodo(enteredText);
+  const addTodoHandler = (todoTitle) => {
+    setTodoItem(currentTodos => [
+      ...currentTodos,
+      { id: uuidv4(), value: todoTitle }
+    ]);
+    setIsAddMode(false);
   }
 
-  const addTodoHandler = () => {
-    setTodoItem(currentTodos => [...todoItem, enteredTodo])
+  const removeGoalHandler = (todoId) => {
+    setTodoItem(currentTodos => {
+      return currentTodos.filter((todo) => todo.id !== todoId)
+    })
   }
 
   return (
     <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <TextInput placeholder="Add Todo" style={styles.input} onChangeText={todoInputHandler}/>
-        <Button title="ADD" onPress={addTodoHandler}/>
-      </View>
-      <View>
-        {todoItem.map((todo) => <Text key={uuidv4}>{todoItem}</Text>)}
-      </View>
+      <Button title="Add new todo" onPress={() => setIsAddMode(true)} />
+      <TodoInput visible={isAddMode} onAddTodo={addTodoHandler} />
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={todoItems}
+        renderItem={ itemData => (
+          <TodoItem
+            id={itemData.item.id}
+            onDelete={removeGoalHandler}
+            title={itemData.item.value}
+          />
+        )}
+      />
     </View>
   );
 }
@@ -31,15 +46,7 @@ const styles = StyleSheet.create({
   screen: {
     padding: 50
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  input: {
-    borderBottomColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-    width: '80%'
-  },
+
+
+
 });
