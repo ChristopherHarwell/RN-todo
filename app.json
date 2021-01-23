@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A basic todo list that i'm using to get a feel for React Native",
+    "githubUrl": "https://github.com/ChristopherHarwell/RN-todo"
   }
 }

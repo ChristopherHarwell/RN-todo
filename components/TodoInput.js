@@ -9,8 +9,13 @@ const TodoInput = (props) => {
         setEnteredTodo(enteredText);
     }
 
+    const addTodoHandler = () => {
+        props.onAddTodo(enteredTodo);
+        setEnteredTodo('');
+    }
+
     return (
-        <Modal visible={props.visible}>
+        <Modal visible={props.visible} animationType="slide">
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Add Todo"
@@ -18,7 +23,11 @@ const TodoInput = (props) => {
                     onChangeText={todoInputHandler}
                     value={enteredTodo}
                 />
-                <Button title="ADD" onPress={() => props.onAddTodo(enteredTodo)} />
+                <View style={styles.buttonContainer}>
+                    <Button title="ADD" onPress={addTodoHandler} />
+                    <Button title="CANCEL" color="red" onPress={props.onCancel} />
+                </View>
+
             </View>
         </Modal>
 
@@ -39,6 +48,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '30%'
+
+    }
 })
 
 export default TodoInput;

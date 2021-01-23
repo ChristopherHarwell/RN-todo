@@ -21,12 +21,16 @@ export default function App() {
     setTodoItem(currentTodos => {
       return currentTodos.filter((todo) => todo.id !== todoId)
     })
+  };
+
+  const cancelTodoAdditionHandler = () => {
+    setIsAddMode(false);
   }
 
   return (
     <View style={styles.screen}>
       <Button title="Add new todo" onPress={() => setIsAddMode(true)} />
-      <TodoInput visible={isAddMode} onAddTodo={addTodoHandler} />
+      <TodoInput visible={isAddMode} onAddTodo={addTodoHandler} onCancel={cancelTodoAdditionHandler} />
       <FlatList
         keyExtractor={(item) => item.id}
         data={todoItems}
