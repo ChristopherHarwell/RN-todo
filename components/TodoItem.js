@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         marginLeft: '90%'
     },
     deleteButtonText: {
-        fontSize: 30,
+        fontSize: "5%",
         color: 'white'
     },
     todoText: {
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     textContainer: {
         width: '80%',
         paddingTop: 15,
-        marginTop: '-10%'    }
+        marginTop: '-10%'
+    }
 })
 
 export default TodoItem;
