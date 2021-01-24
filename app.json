@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "customer_follow_upv3",
-    "slug": "customer_follow_upv3",
+    "name": "TodoList",
+    "slug": "todolist",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
